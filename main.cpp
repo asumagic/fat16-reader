@@ -24,9 +24,9 @@ int main()
 
 	try
 	{
-		MBR mbr{dump};
+		mbr::MBR mbr{dump};
 
-		FATPartition part{dump, 2048};
+		fat::Partition part{dump, 2048};
 	}
 	catch(std::ifstream::failure e)
 	{

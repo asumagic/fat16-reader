@@ -1,6 +1,6 @@
 #include "chs.hpp"
 
-std::ostream& operator<<(std::ostream& stream, const CHSAddress& chs)
+std::ostream& operator<<(std::ostream& stream, const chs::Address& chs)
 {
 	stream << static_cast<int>(chs.cylinder) << "/"
 		   << static_cast<int>(chs.head) << "/"

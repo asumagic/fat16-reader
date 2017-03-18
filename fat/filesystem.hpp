@@ -4,11 +4,14 @@
 #include <fstream>
 #include "bootsector.hpp"
 
-struct FATPartition
+namespace fat
 {
-	FATPartition(std::ifstream& dump, const size_t start_sector);
+	struct Partition
+	{
+		Partition(std::ifstream& dump, const size_t start_sector);
 
-	FATBootSector properties;
-};
+		BootSector properties;
+	};
+}
 
 #endif // FILESYSTEM_HPP

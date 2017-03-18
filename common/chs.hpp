@@ -4,11 +4,14 @@
 #include <iostream>
 #include <cstdint>
 
-struct CHSAddress
+namespace chs
 {
-	uint8_t cylinder, head, sector;
-} __attribute__((packed));
+	struct Address
+	{
+		uint8_t cylinder, head, sector;
+	} __attribute__((packed));
+}
 
-std::ostream& operator<<(std::ostream& stream, const CHSAddress& chs);
+std::ostream& operator<<(std::ostream& stream, const chs::Address& chs);
 
 #endif // CHS_HPP

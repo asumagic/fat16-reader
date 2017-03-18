@@ -7,30 +7,33 @@
 #include <map>
 #include "../common/chs.hpp"
 
-struct MBRPartition
+namespace mbr
 {
-	uint8_t status;
+	struct Partition
+	{
+		uint8_t status;
 
-	CHSAddress chs_start;
-	uint8_t type;
-	CHSAddress chs_end;
+		chs::Address chs_start;
+		uint8_t type;
+		chs::Address chs_end;
 
-	uint32_t start_sector;
-	uint32_t sector_count;
+		uint32_t start_sector;
+		uint32_t sector_count;
 
-	const std::string& type_name() const;
+		const std::string& type_name() const;
 
-	static const std::map<uint8_t, std::string> partition_types;
-	static const std::string unknown_type;
-};
+		static const std::map<uint8_t, std::string> partition_types;
+		static const std::string unknown_type;
+	};
 
-struct MBR
-{
-	MBR(std::ifstream& dump);
+	struct MBR
+	{
+		MBR(std::ifstream& dump);
 
-	std::array<MBRPartition, 4> partitions;
-};
+		std::array<Partition, 4> partitions;
+	};
+}
 
-std::ostream& operator<<(std::ostream& stream, const MBRPartition& part);
+std::ostream& operator<<(std::ostream& stream, const mbr::Partition& part);
 
 #endif // MBR_HPP

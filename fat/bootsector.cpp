@@ -3,33 +3,36 @@
 #include <iostream>
 #include "../log/logger.hpp"
 
-FATBootSector::FATBootSector(std::ifstream& dump, const size_t start_sector)
+namespace fat
 {
-	fatlog << trivial << "Lecture du secteur " << start_sector << " d'amorçage " << std::endl;
-	dump.seekg(static_cast<std::streamoff>(start_sector * 512));
-	dump.read(reinterpret_cast<char*>(&data), sizeof(data));
+	BootSector::BootSector(std::ifstream& dump, const size_t start_sector)
+	{
+		fatlog << trivial << "Lecture du secteur " << start_sector << " d'amorçage " << std::endl;
+		dump.seekg(static_cast<std::streamoff>(start_sector * 512));
+		dump.read(reinterpret_cast<char*>(&data), sizeof(data));
 
-	fatlog << (*this) << std::endl;
+		fatlog << (*this) << std::endl;
+	}
+
+	std::string BootSector::oem() const
+	{
+		return std::string{data.oem_code, data.oem_code + 8};
+	}
+
+	std::string BootSector::label() const
+	{
+		return std::string{data.label, data.label + 11};
+	}
+
+	unsigned long BootSector::sector_count() const
+	{
+		// Plain old FAT16 can use a max of 65535 sectors.
+		// FAT16B can support significantly more. When FAT16B is activated, boot_sector.sectors_short is deactivated.
+		return (data.sectors_short ? data.sectors_short : data.sectors_long);
+	}
 }
 
-std::string FATBootSector::oem() const
-{
-	return std::string{data.oem_code, data.oem_code + 8};
-}
-
-std::string FATBootSector::label() const
-{
-	return std::string{data.label, data.label + 11};
-}
-
-unsigned long FATBootSector::sector_count() const
-{
-	// Plain old FAT16 can use a max of 65535 sectors.
-	// FAT16B can support significantly more. When FAT16B is activated, boot_sector.sectors_short is deactivated.
-	return (data.sectors_short ? data.sectors_short : data.sectors_long);
-}
-
-std::ostream& operator<<(std::ostream& stream, const FATBootSector& part)
+std::ostream& operator<<(std::ostream& stream, const fat::BootSector& part)
 {
 	stream << "Taille de secteur   : " << part.data.sector_size << " octets" << std::endl
 		   << "Taille de cluster   : " << static_cast<int>(part.data.cluster_size) << " secteurs" << std::endl

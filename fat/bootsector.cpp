@@ -12,13 +12,22 @@ FATBootSector::FATBootSector(std::ifstream& dump, const size_t start_sector)
 	fatlog << (*this) << std::endl;
 }
 
+std::string FATBootSector::oem() const
+{
+	return std::string{data.oem_code, data.oem_code + 8};
+}
+
+std::string FATBootSector::label() const
+{
+	return std::string{data.label, data.label + 11};
+}
+
 unsigned long FATBootSector::sector_count() const
 {
 	// Plain old FAT16 can use a max of 65535 sectors.
 	// FAT16B can support significantly more. When FAT16B is activated, boot_sector.sectors_short is deactivated.
 	return (data.sectors_short ? data.sectors_short : data.sectors_long);
 }
-
 
 std::ostream& operator<<(std::ostream& stream, const FATBootSector& part)
 {
@@ -32,8 +41,8 @@ std::ostream& operator<<(std::ostream& stream, const FATBootSector& part)
 		   << "Secteurs            : " << part.sector_count() << std::endl
 		   << "Secteurs cachés     : " << part.data.hidden_sectors << std::endl
 		   << "Type de média       : " << static_cast<int>(part.data.media) << std::endl
-		   << "Créateur du système : '" << std::string{part.data.oem_code, part.data.oem_code + 8} << '\'' << std::endl
-		   << "Légende             : '" << std::string{part.data.label, part.data.label + 11} << '\'';
+		   << "Créateur du système : '" << part.oem() << '\'' << std::endl
+		   << "Légende             : '" << part.label() << '\'';
 
 	return stream;
 }

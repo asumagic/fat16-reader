@@ -35,6 +35,8 @@ struct FATBootSector
 		uint16_t boot_code_sign;
 	} __attribute__((packed)) data;
 
+	std::string oem() const;
+	std::string label() const;
 	unsigned long sector_count() const;
 };
 

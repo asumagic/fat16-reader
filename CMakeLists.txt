@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(TPE_FAT_reader)
+project(fat16_read)
 
 file(GLOB_RECURSE sources "*.cpp" "*.inl" "*.hpp")
 add_executable(${PROJECT_NAME} ${sources})

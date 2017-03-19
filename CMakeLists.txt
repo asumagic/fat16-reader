@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(fat16_read)
 
-file(GLOB_RECURSE sources "*.cpp" "*.inl" "*.hpp")
+file(GLOB_RECURSE sources "*.cpp")
 add_executable(${PROJECT_NAME} ${sources})
 
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")

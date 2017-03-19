@@ -25,7 +25,6 @@ int main()
 	try
 	{
 		mbr::MBR mbr{dump};
-
 		fat::Partition part{dump, 2048};
 	}
 	catch(std::ifstream::failure e)

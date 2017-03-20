@@ -1,5 +1,6 @@
 #include "entry.hpp"
 #include <algorithm>
+#include <iomanip>
 #include <stdexcept>
 #include "../log/logger.hpp"
 
@@ -86,9 +87,28 @@ namespace fat
 std::ostream& operator<<(std::ostream& stream, const fat::Entry& part)
 {
 	if (part.is_directory())
-		stream << useful << "Sous-répertoire trouvé :" << std::endl << "Nom              : " << part.directory_name();
+		stream << useful << "Sous-répertoire trouvé :" << std::endl << "Nom               : " << part.directory_name();
 	else if (part.is_file())
-		stream << useful << "Fichier trouvé :" << std::endl << "Nom et extension : " << part.filename_full();
+		stream << useful << "Fichier trouvé :" << std::endl << "Nom et extension  : " << part.filename_full();
+
+	stream << std::endl << "Attributs         : ";
+
+	if (part.is_archive())
+		stream << "archive ";
+
+	if (part.is_system_file())
+		stream << "système ";
+
+	if (part.is_hidden())
+		stream << "cachée ";
+
+	if (part.is_readonly())
+		stream << "en lecture seule";
+
+	stream << std::endl << "Bloc de départ    : 0x" << std::hex << std::setw(4) << std::setfill('0') << part.data.cluster << std::dec;
+
+	if (part.is_file())
+		stream << std::endl << "Taille de fichier : " << part.data.file_size << " octets";
 
 	return stream;
 }

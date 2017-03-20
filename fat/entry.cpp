@@ -1,7 +1,7 @@
 #include "entry.hpp"
 #include <algorithm>
 #include <stdexcept>
-#include <iostream>
+#include "../log/logger.hpp"
 
 namespace fat
 {
@@ -9,7 +9,8 @@ namespace fat
 	{
 		return (data.filename[0] != 0x00) &&
 			   (data.filename[0] != 0xE5) &&
-			  !(data.attributes & 0x0F); // Ignore MS' Long File Names
+			   (data.attributes  != 0x0F) && // Ignore MS' Long File Names
+			  !(data.attributes  &  0x08); // Ignore the volume name
 	}
 
 	bool Entry::is_directory() const
@@ -65,9 +66,9 @@ namespace fat
 std::ostream& operator<<(std::ostream& stream, const fat::Entry& part)
 {
 	if (part.is_directory())
-		stream << "Répertoire : " << part.directory_name();
+		stream << useful << "Sous-répertoire trouvé :" << std::endl << "Nom              : " << part.directory_name();
 	else if (part.is_file())
-		stream << "Fichier : " << part.filename_full();
+		stream << useful << "Fichier trouvé :" << std::endl << "Nom et extension : " << part.filename_full();
 
 	return stream;
 }

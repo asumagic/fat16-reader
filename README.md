@@ -23,4 +23,5 @@ for (mbr::Partition& mbr_entry : mbr.partitions)
         // Read and prepare the FAT16 filesystem at the given sector
         fat::Filesystem part{dump, mbr_entry.data.start_sector};
     }
-}```
+}
+```

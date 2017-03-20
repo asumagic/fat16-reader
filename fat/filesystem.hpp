@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include "bootsector.hpp"
+#include "directory.hpp"
 
 namespace fat
 {
@@ -11,6 +12,7 @@ namespace fat
 		Partition(std::ifstream& dump, const size_t start_sector);
 
 		BootSector properties;
+		RootDirectory root;
 	};
 }
 

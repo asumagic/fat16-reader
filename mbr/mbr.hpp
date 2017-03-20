@@ -11,14 +11,17 @@ namespace mbr
 {
 	struct Partition
 	{
-		uint8_t status;
+		struct
+		{
+			uint8_t status;
 
-		chs::Address chs_start;
-		uint8_t type;
-		chs::Address chs_end;
+			chs::Address chs_start;
+			uint8_t type;
+			chs::Address chs_end;
 
-		uint32_t start_sector;
-		uint32_t sector_count;
+			uint32_t start_sector;
+			uint32_t sector_count;
+		} __attribute__((packed)) data;
 
 		const std::string& type_name() const;
 

@@ -9,6 +9,8 @@ namespace fat
 	struct BootSector
 	{
 		BootSector(std::ifstream& dump, const size_t start_sector);
+        
+        const uint32_t _offset;
 
 		struct
 		{
@@ -39,7 +41,8 @@ namespace fat
 
 		std::string oem() const;
 		std::string label() const;
-		unsigned long sector_count() const;
+		uint32_t sector_count() const;
+        uint32_t offset() const;
 	};
 }
 

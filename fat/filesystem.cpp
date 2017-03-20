@@ -5,6 +5,7 @@
 namespace fat
 {
 	Partition::Partition(std::ifstream& dump, const size_t start_sector) :
-		properties{dump, start_sector}
+		properties{dump, start_sector},
+		root{dump, properties}
 	{}
 }

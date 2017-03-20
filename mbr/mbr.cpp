@@ -26,7 +26,7 @@ namespace mbr
 	{
 		try
 		{
-			return partition_types.at(type);
+			return partition_types.at(data.type);
 		}
 		catch (const std::out_of_range)
 		{
@@ -57,7 +57,7 @@ namespace mbr
 		mbrlog << trivial << "Listage et vérification des partitions" << std::endl;
 		for (const Partition& part : partitions)
 		{
-			if (part.type)
+			if (part.data.type)
 				mbrlog << useful << "Partition détectée : " << std::endl << part << std::endl;
 			else
 				mbrlog << trivial << "Partition absente" << std::endl;
@@ -67,12 +67,12 @@ namespace mbr
 
 std::ostream& operator<<(std::ostream& stream, const mbr::Partition& part)
 {
-	stream << "État      : " << static_cast<int>(part.status) << std::endl
-		   << "Début CHS : " << part.chs_start << std::endl
-		   << "Type      : " << part.type_name() << " (" << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(part.type) << "h)" << std::dec << std::endl
-		   << "Fin CHS   : " << part.chs_end << std::endl
-		   << "Début LBA : " << part.start_sector << std::endl
-		   << "Secteurs  : " << part.sector_count << " (" << static_cast<float>(part.sector_count * 512) / (1024.f * 1024.f) << " Mio)";
+	stream << "État      : " << static_cast<int>(part.data.status) << std::endl
+		   << "Début CHS : " << part.data.chs_start << std::endl
+		   << "Type      : " << part.type_name() << " (" << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(part.data.type) << "h)" << std::dec << std::endl
+		   << "Fin CHS   : " << part.data.chs_end << std::endl
+		   << "Début LBA : " << part.data.start_sector << std::endl
+		   << "Secteurs  : " << part.data.sector_count << " (" << static_cast<float>(part.data.sector_count * 512) / (1024.f * 1024.f) << " Mio)";
 
 	return stream;
 }

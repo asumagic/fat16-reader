@@ -28,7 +28,7 @@ namespace mbr
 
 	struct MBR
 	{
-		MBR(std::ifstream& dump);
+		explicit MBR(std::ifstream& dump);
 
 		std::array<Partition, 4> partitions;
 	};

@@ -27,7 +27,7 @@ int main()
 		mbr::MBR mbr{dump};
 		fat::Partition part{dump, 2048};
 	}
-	catch(std::ifstream::failure e)
+	catch(const std::ifstream::failure& e)
 	{
 		iolog << important << "Erreur de lecture - " << e.what() << std::endl;
 		throw;

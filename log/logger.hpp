@@ -12,7 +12,7 @@ struct Logger : std::ostream, std::streambuf
 	void print_prefix();
 
 public:
-	Logger(const std::string prefix);
+	explicit Logger(const std::string& prefix);
 
 	int overflow(int c) override;
 };

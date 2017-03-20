@@ -6,9 +6,9 @@ void Logger::print_prefix()
 	(*this) << _prefix << ' ';
 }
 
-Logger::Logger(const std::string prefix) :
+Logger::Logger(const std::string& prefix) :
 	std::ostream{this},
-	_prefix{std::move(prefix)}
+	_prefix{prefix}
 {}
 
 int Logger::overflow(int c)

@@ -30,7 +30,9 @@ int main()
 		{
 			if (mbr_entry.data.type)
 			{
-				fat::Partition part{dump, mbr_entry.data.start_sector};
+				fat::Filesystem part{dump, mbr_entry.data.start_sector};
+				//part.ls("FOLDER");
+				//part.cat("FOLDER/FILE.TXT");
 			}
 		}
 	}

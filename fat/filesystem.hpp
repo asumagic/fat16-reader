@@ -7,9 +7,9 @@
 
 namespace fat
 {
-	struct Partition
+	struct Filesystem
 	{
-		Partition(std::ifstream& dump, const size_t start_sector);
+		Filesystem(std::ifstream& dump, const size_t start_sector);
 
 		BootSector properties;
 		RootDirectory root;

@@ -24,6 +24,11 @@ namespace fat
 		bool is_directory() const;
 		bool is_file() const;
 
+		bool is_readonly() const;
+		bool is_hidden() const;
+		bool is_system_file() const;
+		bool is_archive() const;
+
 		uint8_t first_char() const;
 		std::string filename() const;
 		std::string filename_full() const;

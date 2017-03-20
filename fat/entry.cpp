@@ -23,6 +23,26 @@ namespace fat
 		return !is_directory();
 	}
 
+	bool Entry::is_readonly() const
+	{
+		return data.attributes & 0x01;
+	}
+
+	bool Entry::is_hidden() const
+	{
+		return data.attributes & 0x02;
+	}
+
+	bool Entry::is_system_file() const
+	{
+		return data.attributes & 0x04;
+	}
+
+	bool Entry::is_archive() const
+	{
+		return data.attributes & 0x20;
+	}
+
 	uint8_t Entry::first_char() const
 	{
 		if (data.filename[0] == 0x05)

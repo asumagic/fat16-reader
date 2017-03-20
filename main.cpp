@@ -25,7 +25,14 @@ int main()
 	try
 	{
 		mbr::MBR mbr{dump};
-		fat::Partition part{dump, 2048};
+
+		for (mbr::Partition& mbr_entry : mbr.partitions)
+		{
+			if (mbr_entry.data.type)
+			{
+				fat::Partition part{dump, mbr_entry.data.start_sector};
+			}
+		}
 	}
 	catch(const std::ifstream::failure& e)
 	{
